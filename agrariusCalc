@@ -1,0 +1,322 @@
+<script>
+var el = document.getElementById('units');
+
+el.addEventListener('change', function handleChange(event) {
+  if (event.target.value === 'Hectares') {
+		$('.text_hectares').css('display','block');
+    $('.text_acres').css('display','none');
+  } else {
+		$('.text_acres').css('display','block');
+    $('.text_hectares').css('display','none');
+  }
+});
+</script>
+
+<script>
+$('#autoInput').on('change', function(){  
+  $('#total').text(calcTotal);
+  $('#current-total').text(calcCurrentTotal);
+  $('#cropYieldSumCurrent').text(calcCropYieldCurrent);
+  $('#cropYieldSumAgrarius').text(calcCropYieldAgrarius);
+  $('#cropYieldSumDelta').text(calcCropYieldDelta);
+  $('#fertilizerSumCurrent').text(calcFertilizerCostCurrent);
+  $('#fertilizerSumAgrarius').text(calcFertilizerCostAgrarius);
+  $('#fertilizerSumDelta').text(calcFertilizerCostDelta);
+  $('#yieldSumCurrent').text(calcYieldSumCurrent);
+  $('#yieldSumAgrarius').text(calcYieldSumAgrarius);
+  $('#yieldSumDelta').text(calcYieldSumDelta);
+});
+
+$('#units').on('change', function(){  
+  $('#total').text(calcTotal);
+  $('#current-total').text(calcCurrentTotal);
+  $('#cropYieldSumCurrent').text(calcCropYieldCurrent);
+  $('#cropYieldSumAgrarius').text(calcCropYieldAgrarius);
+  $('#cropYieldSumDelta').text(calcCropYieldDelta);
+  $('#fertilizerSumCurrent').text(calcFertilizerCostCurrent);
+  $('#fertilizerSumAgrarius').text(calcFertilizerCostAgrarius);
+  $('#fertilizerSumDelta').text(calcFertilizerCostDelta);
+  $('#yieldSumCurrent').text(calcYieldSumCurrent);
+  $('#yieldSumAgrarius').text(calcYieldSumAgrarius);
+  $('#yieldSumDelta').text(calcYieldSumDelta);
+});
+
+$('#totalLand').on('input', function(){  
+  $('#total').text(calcTotal);
+  $('#current-total').text(calcCurrentTotal);
+  $('#cropYieldSumCurrent').text(calcCropYieldCurrent);
+  $('#cropYieldSumAgrarius').text(calcCropYieldAgrarius);
+  $('#cropYieldSumDelta').text(calcCropYieldDelta);
+  $('#fertilizerSumCurrent').text(calcFertilizerCostCurrent);
+  $('#fertilizerSumAgrarius').text(calcFertilizerCostAgrarius);
+  $('#fertilizerSumDelta').text(calcFertilizerCostDelta);
+  $('#yieldSumCurrent').text(calcYieldSumCurrent);
+  $('#yieldSumAgrarius').text(calcYieldSumAgrarius);
+  $('#yieldSumDelta').text(calcYieldSumDelta);
+});
+
+$('#fertilizerCost').on('input', function(){  
+  $('#total').text(calcTotal);
+  $('#current-total').text(calcCurrentTotal);
+  $('#cropYieldSumCurrent').text(calcCropYieldCurrent);
+  $('#cropYieldSumAgrarius').text(calcCropYieldAgrarius);
+  $('#cropYieldSumDelta').text(calcCropYieldDelta);
+  $('#fertilizerSumCurrent').text(calcFertilizerCostCurrent);
+  $('#fertilizerSumAgrarius').text(calcFertilizerCostAgrarius);
+  $('#fertilizerSumDelta').text(calcFertilizerCostDelta);
+  $('#yieldSumCurrent').text(calcYieldSumCurrent);
+  $('#yieldSumAgrarius').text(calcYieldSumAgrarius);
+  $('#yieldSumDelta').text(calcYieldSumDelta);
+});
+
+$('#totalQuantity').on('input', function(){  
+  $('#total').text(calcTotal);
+  $('#current-total').text(calcCurrentTotal);
+  $('#cropYieldSumCurrent').text(calcCropYieldCurrent);
+  $('#cropYieldSumAgrarius').text(calcCropYieldAgrarius);
+  $('#cropYieldSumDelta').text(calcCropYieldDelta);
+  $('#fertilizerSumCurrent').text(calcFertilizerCostCurrent);
+  $('#fertilizerSumAgrarius').text(calcFertilizerCostAgrarius);
+  $('#fertilizerSumDelta').text(calcFertilizerCostDelta);
+  $('#yieldSumCurrent').text(calcYieldSumCurrent);
+  $('#yieldSumAgrarius').text(calcYieldSumAgrarius);
+  $('#yieldSumDelta').text(calcYieldSumDelta);
+});
+
+$('#grossRevenue').on('input', function(){  
+  $('#total').text(calcTotal);
+  $('#current-total').text(calcCurrentTotal);
+  $('#cropYieldSumCurrent').text(calcCropYieldCurrent);
+  $('#cropYieldSumAgrarius').text(calcCropYieldAgrarius);
+  $('#cropYieldSumDelta').text(calcCropYieldDelta);
+  $('#fertilizerSumCurrent').text(calcFertilizerCostCurrent);
+  $('#fertilizerSumAgrarius').text(calcFertilizerCostAgrarius);
+  $('#fertilizerSumDelta').text(calcFertilizerCostDelta);
+  $('#yieldSumCurrent').text(calcYieldSumCurrent);
+  $('#yieldSumAgrarius').text(calcYieldSumAgrarius);
+  $('#yieldSumDelta').text(calcYieldSumDelta);
+});
+
+function calcTotal(){
+  
+  var crop = 1.15;
+  var units = $('#units').val();
+  var multiplier = (units ==='Hectares') ? '2.5':'1';
+  var totalCoverage = Number($('#totalLand').val());
+  var fertilizerCost = Number($('#fertilizerCost').val());
+  var cropYield = Number($('#totalQuantity').val());
+  var revenue = Number($('#grossRevenue').val());
+  var cost = (units ==='Hectares') ? '60':'24';
+	var getTotal = (((cropYield * revenue * totalCoverage * crop) + (fertilizerCost * 0.7 * totalCoverage) - (cost * totalCoverage * 2)) * multiplier);
+	var total = +Number(Math.round(getTotal + "e+2") + "e-2");
+  
+  let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+	});
+  return dollarUS.format(total);
+};
+
+function calcCurrentTotal(){
+  
+  var crop = 1.15;
+  var units = $('#units').val();
+  var multiplier = (units ==='Hectares') ? '2.5':'1';
+  var totalCoverage = Number($('#totalLand').val());
+  var fertilizerCost = Number($('#fertilizerCost').val());
+  var cropYield = Number($('#totalQuantity').val());
+  var revenue = Number($('#grossRevenue').val());
+  var cost = (units ==='Hectares') ? '60':'24';
+  var getTotal = (((cropYield * revenue * totalCoverage) - (fertilizerCost * totalCoverage)) * multiplier);
+	var total = +(Math.round(getTotal + "e+2") + "e-2");
+  
+  let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+	});
+  return dollarUS.format(total);
+};
+
+function calcCropYieldCurrent(){
+  var totalCoverage = Number($('#totalLand').val());
+  var cropYield = Number($('#totalQuantity').val());
+	return Math.ceil(totalCoverage * cropYield);
+};
+
+function calcCropYieldAgrarius(){
+	var crop = 1.15;
+  var totalCoverage = Number($('#totalLand').val());
+  var cropYield = Number($('#totalQuantity').val());
+  return Math.ceil(totalCoverage * cropYield * 1.15);
+};
+
+function calcCropYieldDelta(){
+	var crop = 1.15;
+  var totalCoverage = Number($('#totalLand').val());
+  var cropYield = Number($('#totalQuantity').val());  
+  return Math.ceil(totalCoverage * cropYield * 1.15) - (totalCoverage * cropYield);
+};
+
+function calcFertilizerCostCurrent(){
+	var totalCoverage = Number($('#totalLand').val());
+  var fertilizerCost = Number($('#fertilizerCost').val());
+  var total = Math.ceil(totalCoverage * fertilizerCost);
+  let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+	});
+  return dollarUS.format(total);
+};
+
+function calcFertilizerCostAgrarius(){
+	var totalCoverage = Number($('#totalLand').val());
+  var fertilizerCost = Number($('#fertilizerCost').val());
+  var total = Math.ceil(totalCoverage * fertilizerCost * 0.7);
+  let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+	});
+  return dollarUS.format(total);
+};
+
+function calcFertilizerCostDelta(){
+	var totalCoverage = Number($('#totalLand').val());
+  var fertilizerCost = Number($('#fertilizerCost').val());
+	var total = Math.ceil(totalCoverage * fertilizerCost * 0.7) - (totalCoverage * fertilizerCost);
+  let dollarUS = Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+	});
+  return dollarUS.format(total);
+};
+
+function calcYieldSumCurrent(){
+  var cropYield = Number($('#totalQuantity').val());
+  return Math.ceil(cropYield);
+};
+
+function calcYieldSumAgrarius(){
+  var cropYield = Number($('#totalQuantity').val());
+  return Math.ceil(cropYield * 1.15);
+};
+
+function calcYieldSumAgrarius(){
+  var cropYield = Number($('#totalQuantity').val());
+  return Math.ceil(cropYield * 1.15) - (cropYield);
+};
+
+</script>
+
+
+
+<script>
+
+//Number of Bottles Calculator 
+$('#inputCalc').on('input', function(){  
+  $('#totalCalc').text(calcTotalQty);
+  $('.quantity_value').val(calcTotalQty);
+});
+$('#unitsCalc').change(function(){
+	$('#totalCalc').text(calcTotalQty);
+  $('.quantity_value').val(calcTotalQty);
+});
+
+function calcTotalQty(){
+  var input = Number($('#inputCalc').val());
+  var units = $('#unitsCalc').val();
+  var multiplier = (units ==="Hectares") ? "2.5":"1";
+  
+	return Math.ceil(input / 50 * multiplier * 2)
+};
+
+</script>
+
+
+
+
+<script>
+//Type Dropdown List Element
+var inputField = document.getElementById("autoInput");
+var searchList = document.getElementById("search-terms");
+var searchTermsWrapper = document.getElementById("searchTermsWrapper");
+var terms = [];
+
+// Source items from CMS START
+var autofillTitles = document.getElementsByClassName('autofill-title'); 
+for (var i = 0; i < autofillTitles.length; i++) {            
+terms.push(autofillTitles[i].innerHTML);
+}
+
+// Source items from CMS END
+inputField.setAttribute("onkeyup", "typeSearch()");
+searchTermsWrapper.style.display = "none";
+
+function searchTerms() { 
+// add terms to dropdown list.
+  for (i = 0; i < terms.length; i++) {     
+    var li = document.createElement("li");          
+      li.innerHTML = '<a href="#" class="list-term">' + terms[i] + '</a>';         
+        searchList.appendChild(li);
+}            
+    
+// orders the list in alphabetical order.
+var list, i, switching, b, shouldSwitch;
+  list = document.getElementById("search-terms");        
+  switching = true;       
+while (switching) {
+  switching = false;          
+  b = list.getElementsByTagName("LI");
+  for (i = 0; i < (b.length - 1); i++) {
+  shouldSwitch = false;
+  if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {     
+    shouldSwitch = true;
+    break;
+    }            
+  }
+  if (shouldSwitch) {
+    b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;      
+    }    
+  }    
+}
+    
+// autocomplete feature, activated on keystroke in the input.
+function typeSearch() {
+  searchTermsWrapper.style.display = 'block';
+    if (inputField.value == "") {
+      searchTermsWrapper.style.display = 'none';
+    console.log('test');      
+}
+  var filter, ul, li, a, i, txtValue;                
+    filter = inputField.value.toUpperCase();        
+    ul = searchList;      
+    li = ul.getElementsByTagName("li");
+  for (i = 0; i < li.length; i++) {      
+    a = li[i];      
+    txtValue = a.textContent || a.innerText;        
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+    li[i].style.display = "";    
+    } else {    
+      li[i].style.display = "none";
+    }
+  }
+}
+// detects selection of a search term. 
+searchTerms();  
+document.addEventListener('click', function (event) {
+  if (!event.target.matches('.list-term')) return;
+	event.preventDefault();
+    inputField.value = event.target.innerHTML;
+    searchTermsWrapper.style.display = 'none';
+});
+
+function checkFocus(e) {
+  var activeTextarea = document.activeElement.id;
+    if (activeTextarea != 'autoInput') {
+  	searchTermsWrapper.style.display = "none";
+ 		} else {
+      searchTermsWrapper.style.display = "block";  
+    }
+  }
+document.addEventListener('mouseup', checkFocus, false);
+</script>
