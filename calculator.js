@@ -58,17 +58,15 @@ currentRev.text(calcFunction1(landVal, yieldVal, revenueVal, fertilizerCostVal))
 newRev.text(calcFunction2(cropVal, landVal, yieldVal, revenueVal, fertilizerCostVal, fertilzerReductionVal, productCostVal, applicationsVal));
 
 // Chart Values
-a1.text(calcFunctionA1(yieldVal, landVal)); 																	// Current, Total Yield
-a2.text(calcFunctionA2(yieldVal)); 																						// Current, Yield per Acre
-a3.text(calcFunctionA3(fertilizerCostVal, landVal)); 													// Current, Fertilizer Cost
-
-b1.text(calcFunctionB1(yieldVal, landVal, cropVal)); 													// Agrarius, Total Yield
-b2.text(calcFunctionB2(yieldVal, cropVal)); 																	// Agrarius, Yield per Acre
-b3.text(calcFunctionB3(fertilizerCostVal, landVal, fertilzerReductionVal)); 	// Agrarius, Fertilizer Cost Reduction
-
-c1.text(calcFunctionC1(yieldVal, landVal, cropVal)); 													// ROI, A1 - B1
-c2.text(calcFunctionC2(yieldVal, cropVal)); 																	// ROI, A2 - B2
-c3.text(calcFunctionC3(fertilizerCostVal, landVal, fertilzerReductionVal)); 	// ROI, A3 - B3
+a1.text(calcFunctionA1(yieldVal, landVal));
+a2.text(calcFunctionA2(yieldVal));
+a3.text(calcFunctionA3(fertilizerCostVal, landVal));
+b1.text(calcFunctionB1(yieldVal, landVal, cropVal));
+b2.text(calcFunctionB2(yieldVal, cropVal));
+b3.text(calcFunctionB3(fertilizerCostVal, landVal, fertilzerReductionVal));
+c1.text(calcFunctionC1(yieldVal, landVal, cropVal));
+c2.text(calcFunctionC2(yieldVal, cropVal));
+c3.text(calcFunctionC3(fertilizerCostVal, landVal, fertilzerReductionVal));
 
 // Summary Statement Values
 percentIncrease.text(Math.round((cropVal - 1 ) * 100 ));
